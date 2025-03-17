@@ -19,7 +19,7 @@ def get_prediction():
     X = df.drop(columns=["PTS", "AST", "TRB"])
     y = df[["PTS", "AST", "TRB"]]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=45)
 
     scaler = StandardScaler()
     #X_train = scaler.fit_transform(X_train)

@@ -40,8 +40,11 @@ function App() {
         <div className="container">
             <h2>NBA Player Prediction</h2>
             <select value={selectedValue} onChange={handleChange} className="select-box">
-                <option value="">Select an option</option>
-                <option value="predict">Run Prediction</option>
+                <option value="">Select a NBA Player</option>
+                <option value="predict">Shai Gilgeous-Alexander</option>
+                <option value="predict">Jayson Tatum</option>
+                <option value="predict">Josh Hart</option>
+                <option value="predict">Devin Booker</option>
             </select>
 
             {showImage && (
