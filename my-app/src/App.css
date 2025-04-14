@@ -1,56 +1,368 @@
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.split-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(to right, #1d428a 50%, #c8102e 50%);
+}
+
 .container {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    margin-top: 20px;
-    color: black;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: black;
+  background-color: #f0f0f0;
+  max-width: 900px;
+  padding: 40px 20px;
+  border-radius: 10px;    
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 /* Style the dropdown */
 .select-box {
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    margin-top: 10px;
-    background-color: white;
-    color: black;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: white;
+  color: black;
 }
 
 /* Player Image */
 .player-image {
-    width: 350px;
-    height: 254px;
-    margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  height: 254px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Table Styling */
 .table-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .prediction-table {
-    width: 60%;
-    border-collapse: collapse;
-    border: 1px solid black;
-    background-color: #fff;
+  width: 60%;
+  border-collapse: collapse;
+  border: 1px solid black;
+  background-color: #fff;
 }
 
 .prediction-table th, .prediction-table td {
-    padding: 10px;
-    border: 1px solid black;
-    text-align: center;
+  padding: 10px;
+  border: 1px solid black;
+  text-align: center;
 }
 
 .prediction-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.method-selection {
+  /* margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px; */
+  border-Radius: 10px;
+  background-Color: rgba(255, 255, 255, 0.1);
+  /* display: flex; */
+  flex-Direction: column;
+  align-Items: center;
+}
+
+.method-options {
+  display: flex;
+  justify-Content: center;
+  gap: 15px;
+  margin-Top: 15px;
+  flex-Wrap: wrap;
+}
+
+.method-button {
+  padding: 10px 15px;
+  border-Radius: 5px;
+  cursor: pointer;
+  font-Weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  min-Width: 180px;
+}
+
+.method-button-active {
+  border: 2px solid #ffc107;
+  box-Shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+.method-rf {
+  background-Color: #28a745;
+  color: white;
+}
+
+.method-avg {
+  background-Color: #007bff;
+  color: white;
+}
+.method-both {
+  background-Color: #6c757d;
+  color: white;
+}
+
+.method-description {
+  font-Size: 0.9rem;
+  margin-Top: 8px;
+  /* margin-Bottom: 20px; */
+  font-Style: italic;
+  color: black;
+}
+
+.github-link {
+  /* position: absolute; */
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.github-link:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.prediction-header {
+  margin-bottom: 10px; /* Adjust spacing between header and table */
+  text-align: center; /* Center-align the text */
+}
+
+.prediction-header h3 {
+  margin: 0; /* Remove extra margin */
+  font-size: 1.5rem; /* Adjust font size */
+  font-weight: bold;
+}
+
+.prediction-header p {
+  margin: 5px 0 0; /* Add a small margin above the accuracy */
+  font-size: 1.2rem; /* Adjust font size */
+  color: #555; /* Optional: Change text color */
+}
+
+.gambling-disclaimer {
+  margin-top: 40px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #ddd;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 4px solid #ffc107;
+}
+
+.accuracy-container {
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.overall-accuracy {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-accuracies {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-accuracy {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.stat-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.comparison-container {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comparison-metrics {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.method-comparison {
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.method-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.accuracy-value {
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.method-recommendation {
+  font-size: 1.1rem;
+  padding: 12px;
+  background-color: #e6f7ff;
+  border-left: 3px solid #1890ff;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .stat-accuracies {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparison-metrics {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .method-comparison {
+    width: 90%;
+  }
+}
+
+.disclaimer-title {
+  font-weight: bold;
+  color: #ffc107;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.debugSection {
+  margin-top: 30px; 
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 14px;
+  display: none 
+}
+
+@media (max-width: 768px) {
+  .prediction-table {
+    width: 95%;
+  }
+  
+  .player-image {
+    width: 280px;
+    height: 203px;
+  }
+  
+  .select-box {
+    width: 220px;
+  }
+  
+  .method-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .github-link {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 10px auto;
+    width: fit-content;
+  }
 }
 
 #root {
