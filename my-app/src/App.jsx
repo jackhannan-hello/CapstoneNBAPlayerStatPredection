@@ -6,15 +6,15 @@ import './App.css'
 // NBA Teams data with their players
 const NBA_TEAMS = {
     "All Teams": ["Select a player"],
-    "Boston Celtics": ["Jayson Tatum", "Jaylen Brown", "Al Horford", "Payton Pritchard"],
-    "New York Knicks": ["Josh Hart", "Jalen Brunson"],
+    "Boston Celtics": ["Jayson Tatum", "Jaylen Brown", "Payton Pritchard"],
+    "New York Knicks": ["Josh Hart"],
     "Phoenix Suns": ["Devin Booker", "Kevin Durant"],
     "Oklahoma City Thunder": ["Shai Gilgeous-Alexander"],
     "Los Angeles Lakers": ["LeBron James", "Austin Reaves"],
-    "Golden State Warriors": ["Stephen Curry", "Draymond Green", "Andrew Wiggins"],
-    "Denver Nuggets": ["Jamal Murray", "Russell Westbrook"],
+    "Golden State Warriors": ["Stephen Curry"],
+    "Denver Nuggets": ["Jamal Murray", "Nikola Jokic"],
     "Miami Heat": ["Bam Adebayo", "Tyler Herro"],
-    "Minnesota Timberwolves": ["Rudy Gobert"],
+    "Minnesota Timberwolves": ["Anthony Edwards"],
     // Add more teams as needed
   };
 
@@ -22,10 +22,8 @@ const NBA_TEAMS = {
 const PLAYER_IMAGES = {
     'Jayson Tatum': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4065648.png&w=350&h=254',
     'Jaylen Brown': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3917376.png&w=350&h=254',
-    'Al Horford': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3213.png&w=350&h=254',
-    'Payton Pritchard': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066835.png&w=350&h=254',
+    'Payton Pritchard': 'https://cdn.nba.com/headshots/nba/latest/1040x760/1630202.png',
     'Josh Hart': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3062679.png&w=350&h=254',
-    'Jalen Brunson': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3934672.png&w=350&h=254',
     'Devin Booker': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3136193.png&w=350&h=254',
     'Kevin Durant': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3202.png&w=350&h=254',
     'Shai Gilgeous-Alexander': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4278073.png&w=350&h=254',
@@ -34,19 +32,35 @@ const PLAYER_IMAGES = {
     'Stephen Curry': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3975.png&w=350&h=254',
     'Draymond Green': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/6589.png&w=350&h=254',
     'Andrew Wiggins': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3059319.png&w=350&h=254',
-    'Jamal Murray': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3936299.png&w=350&h=254',
     'Russell Westbrook': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3468.png&w=350&h=254',
     'Bam Adebayo': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4066261.png&w=350&h=254',
     'Tyler Herro': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4395725.png&w=350&h=254',
     'Rudy Gobert': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3032976.png&w=350&h=254',
+    'Anthony Edwards': 'https://cdn.nba.com/headshots/nba/latest/1040x760/1630162.png',
+    'Nikola Jokic': 'https://tsnimages.tsn.ca/ImageProvider/PlayerHeadshot?seoId=nikola-jokic',
   };
 
 // Player API key mapping
 const PLAYER_KEYS = {
     'Shai Gilgeous-Alexander': 'sga',
     'Jayson Tatum': 'jayson_tatum',
+    'Jaylen Brown': 'jaylen_brown',
+    'Payton Pritchard': 'payton_pritchard',
     'Josh Hart': 'josh_hart',
-    'Devin Booker': 'devin_booker'
+    'Devin Booker': 'devin_booker',
+    'Kevin Durant': 'kevin_durant',
+    'LeBron James': 'lebron_james',
+    'Austin Reaves': 'austin_reaves',
+    'Stephen Curry': 'steph_curry',
+    'Draymond Green': 'draymond_green',
+    'Jamal Murray': 'jamal_murray',
+    'Russell Westbrook': 'russell_westbrook',
+    'Bam Adebayo': 'bam_adebayo',
+    'Tyler Herro': 'tyler_herro',
+    'Rudy Gobert': 'rudy_gobert',
+    'Payton Pritchard': 'payton_pritchard',
+    'Anthony Edwards': 'anthony_edwards',
+    'Nikola Jokic': 'nikola_jokic',
 };
 
 // Description of prediction methods

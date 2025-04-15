@@ -16,7 +16,18 @@ PLAYER_MAPPING = {
     'jaylen_brown': 'jaylenbrown',
     'austin_reaves': 'austinreaves',
     'lamelo_ball': 'lameloball',
-    'bam_adebayo': 'bamadebayo'
+    'bam_adebayo': 'bamadebayo',
+    'payton_pritchard': 'paytonpritchard',
+    'jalen_brunson': 'jalenbrunson',
+    'kevin_durant': 'kevindurant',
+    'draymond_green': 'draymondgreen',
+    'andrew_wiggins': 'andrewwiggins',
+    'jamal_murray': 'jamalmurray',
+    'russell_westbrook': 'russellwestbrook',
+    'tyler_herro': 'tylerherro',
+    'rudy_gobert': 'rudygobert',
+    'anthony_edwards': 'anthonyedwards',
+    'nikola_jokic': 'nikolajokic',
 }
 
 # Map to display names
@@ -31,7 +42,18 @@ DISPLAY_NAMES = {
     'jaylen_brown': 'Jaylen Brown',
     'austin_reaves': 'Austin Reaves',
     'lamelo_ball': 'LaMelo Ball',
-    'bam_adebayo': 'Bam Adebayo'
+    'bam_adebayo': 'Bam Adebayo',
+    'payton_pritchard': 'Payton Pritchard',
+    'jalen_brunson': 'Jalen Brunson',
+    'kevin_durant': 'Kevin Durant',
+    'draymond_green': 'Draymond Green',
+    'andrew_wiggins': 'Andrew Wiggins',
+    'jamal_murray': 'Jamal Murray',
+    'russell_westbrook': 'Russell Westbrook',
+    'tyler_herro': 'Tyler Herro',
+    'rudy_gobert': 'Rudy Gobert',
+    'anthony_edwards': 'Anthony Edwards',
+    'nikola_jokic': 'Nikola Jokic',
 }
 
 def get_player_average(player_key):
@@ -53,16 +75,21 @@ def get_player_average(player_key):
     return team_avg, season_avg, recent_avg, opponent_avg"""
     # Get the player's file prefix
     player_prefix = PLAYER_MAPPING.get(player_key, player_key)
+
+    print(player_prefix)
     
     # File paths
-    #recent_data = os.path.join("playerStats", f"{player_prefix}P5G.csv")
-    recent_data = os.path.join("playerStats", f"{player_prefix}FullStats.csv")
-    career_data = os.path.join("playerStats", f"{player_prefix}.csv")
+    base_dir = r"c:\Users\Jack Hannan\source\repos\CapstoneNBAPlayerStatPredection\my-app\src"
+    recent_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
+    career_data = os.path.join(base_dir, "playerStats", f"{player_prefix}.csv")
+
+    print(recent_data)
+    print(career_data)
     
-    # Check if files exist
+    #Check if files exist
     if not os.path.exists(recent_data) or not os.path.exists(career_data):
         #raise FileNotFoundError(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found")
-        recent_data = os.path.join("playerStats", "sgaP5G.csv")
+        recent_data = os.path.join("playerStats", "sgaFullStats.csv")
         career_data = os.path.join("playerStats", "sga.csv")
         print(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found, using default stats")
     
@@ -235,12 +262,14 @@ def get_player_prediction(player_key):
             'AST': recent['AST'] * 0.95,  # Just reducing 5% for demonstration
             'TRB': recent['TRB'] * 1.02   # Just adding 2% for demonstration
         })"""
-        actual_data = os.path.join("playerStats", f"{player_key}FullStats.csv")
+        player_prefix = PLAYER_MAPPING.get(player_key, player_key)
+        base_dir = r"c:\Users\Jack Hannan\source\repos\CapstoneNBAPlayerStatPredection\my-app\src"
+        actual_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
                              
         if not os.path.exists(actual_data):
             #raise FileNotFoundError(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found")
             actual_data = os.path.join("playerStats", "sgaFullStats.csv")
-            print(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found, using default stats")
+            print(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found, using default stats hello")
 
         actual = pd.read_csv(actual_data).tail(1)[["PTS", "AST", "TRB"]].iloc[0]
 
@@ -297,4 +326,3 @@ if __name__ == '__main__':
     # Test with default player
     result = get_player_prediction('sga')
     print(result)
-    

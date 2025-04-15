@@ -20,7 +20,18 @@ PLAYER_MAPPING = {
     'jaylen_brown': 'jaylenbrown',
     'austin_reaves': 'austinreaves',
     'lamelo_ball': 'lameloball',
-    'bam_adebayo': 'bamadebayo'
+    'bam_adebayo': 'bamadebayo',
+    'payton_pritchard': 'paytonpritchard',
+    'jalen_brunson': 'jalenbrunson',
+    'kevin_durant': 'kevindurant',
+    'draymond_green': 'draymondgreen',
+    'andrew_wiggins': 'andrewwiggins',
+    'jamal_murray': 'jamalmurray',
+    'russell_westbrook': 'russellwestbrook',
+    'tyler_herro': 'tylerherro',
+    'rudy_gobert': 'rudygobert',
+    'anthony_edwards': 'anthonyedwards',
+    'nikola_jokic': 'nikolajokic',
 }
 
 # Map to display names
@@ -35,7 +46,18 @@ DISPLAY_NAMES = {
     'jaylen_brown': 'Jaylen Brown',
     'austin_reaves': 'Austin Reaves',
     'lamelo_ball': 'LaMelo Ball',
-    'bam_adebayo': 'Bam Adebayo'
+    'bam_adebayo': 'Bam Adebayo',
+    'payton_pritchard': 'Payton Pritchard',
+    'jalen_brunson': 'Jalen Brunson',
+    'kevin_durant': 'Kevin Durant',
+    'draymond_green': 'Draymond Green',
+    'andrew_wiggins': 'Andrew Wiggins',
+    'jamal_murray': 'Jamal Murray',
+    'russell_westbrook': 'Russell Westbrook',
+    'tyler_herro': 'Tyler Herro',
+    'rudy_gobert': 'Rudy Gobert',
+    'anthony_edwards': 'Anthony Edwards',
+    'nikola_jokic': 'Nikola Jokic',
 }
 
 def calculate_accuracy_metrics(actual, predicted):
@@ -73,9 +95,7 @@ def load_and_preprocess_data(file_path):
     """Load and preprocess data from the given file path."""
     df = pd.read_csv(file_path)
     try:
-        df = df.drop(columns=["Date", "Unnamed: 6", "G", "Age", "GS", "MP", "FG", "FGA",
-                              "FG%", "3P", "3PA", "3P%", "FT", "FTA", "FT%", "ORB", "DRB",
-                              "STL", "BLK", "TOV", "PF", "GmSc", "+/-"])
+        df = df = df[["Rk", "Gcar", "Gtm", "Team", "AWAY", "Opp", "PTS", "AST", "TRB"]]
     except KeyError:
         print("Warning: Some columns not found in the dataset")
     df = df.dropna()
@@ -147,9 +167,11 @@ def get_player_rf_prediction(player_key):
     try:
         # Get the player's file prefix
         player_prefix = PLAYER_MAPPING.get(player_key, player_key)
+        print(player_prefix)
         
         # File path
         file_path = os.path.join("playerStats", f"{player_prefix}FullStats.csv")
+        print(file_path)
         
         # Check if file exists
         if not os.path.exists(file_path):
