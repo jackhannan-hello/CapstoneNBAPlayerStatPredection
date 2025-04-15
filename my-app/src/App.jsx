@@ -37,6 +37,7 @@ const PLAYER_IMAGES = {
     'Rudy Gobert': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3032976.png&w=350&h=254',
     'Anthony Edwards': 'https://cdn.nba.com/headshots/nba/latest/1040x760/1630162.png',
     'Nikola Jokic': 'https://tsnimages.tsn.ca/ImageProvider/PlayerHeadshot?seoId=nikola-jokic',
+    'Jamal Murray': 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3936299.png',
   };
 
 // Player API key mapping
