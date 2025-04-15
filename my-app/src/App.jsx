@@ -8,7 +8,6 @@ const NBA_TEAMS = {
     "All Teams": ["Select a player"],
     "Boston Celtics": ["Jayson Tatum", "Jaylen Brown", "Payton Pritchard"],
     "New York Knicks": ["Josh Hart"],
-    "Phoenix Suns": ["Devin Booker", "Kevin Durant"],
     "Oklahoma City Thunder": ["Shai Gilgeous-Alexander"],
     "Los Angeles Lakers": ["LeBron James", "Austin Reaves"],
     "Golden State Warriors": ["Stephen Curry"],
