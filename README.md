@@ -43,7 +43,7 @@ This project is a web application that predicts NBA player statistics using mach
 ### Prerequisites
 - Node.js and npm installed on your machine.
 - Python 3.x installed.
-- Flask and required Python libraries installed.
+- Flask, Numpy, Pandas, SKLearn, and MatPlotLib are required Python libraries installed.
 
 ### Steps
 1. Clone the repository:
