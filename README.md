@@ -66,7 +66,7 @@ cd my-app
 npm start or npm run dev
 
 6. Open the application in your browser:
-when you run it. It should give you the link or web addres to run the site
+when you run it. It should give you the link or web address to run the site
 
 Usage:
 1. Select a team and player from the dropdown menus.
