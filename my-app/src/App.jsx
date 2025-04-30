@@ -58,7 +58,6 @@ const PLAYER_KEYS = {
     'Bam Adebayo': 'bam_adebayo',
     'Tyler Herro': 'tyler_herro',
     'Rudy Gobert': 'rudy_gobert',
-    'Payton Pritchard': 'payton_pritchard',
     'Anthony Edwards': 'anthony_edwards',
     'Nikola Jokic': 'nikola_jokic',
 };
@@ -102,6 +101,39 @@ function calculateAccuracy(data) {
 
     const overallAccuracy = (totalAccuracy / stats.length).toFixed(2); // Average accuracy
     return { overall: overallAccuracy, stats: accuracyMetrics };
+}
+
+function renderPredictionTable(title, data, accuracyMetrics) {
+    if (!data || !accuracyMetrics) return null; // Return nothing if data or metrics are missing
+
+    return (
+        <div className="table-container">
+            <h3>{title}</h3>
+            <p>Overall Accuracy: {accuracyMetrics.overall}%</p>
+            {data.map((row, index) => (
+                <table className="prediction-table" key={index}>
+                    <thead>
+                        <tr>
+                            <th>Stat</th>
+                            <th>Actual</th>
+                            <th>Predicted</th>
+                            <th>Accuracy (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {["PTS", "AST", "TRB"].map((stat) => (
+                            <tr key={stat}>
+                                <td>{stat}</td>
+                                <td>{row[stat]}</td>
+                                <td>{row[`Predicted_${stat}`]}</td>
+                                <td>{accuracyMetrics.stats[stat]}%</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ))}
+        </div>
+    );
 }
 
 function App() {
@@ -174,7 +206,7 @@ function App() {
             setLoading(true);
             try {
                 const playerKey = PLAYER_KEYS[playerName];
-                const debugData = { playerName, playerKey };
+                //const debugData = { playerName, playerKey };
 
                 // Determine which predictions to fetch based on selected method
                 let shouldFetchRF = predictionMethod === 'both' || predictionMethod === 'random_forest';
@@ -344,62 +376,9 @@ function App() {
             </a>
             <div className="container">
                 <h2 className='title'>NBA Player Prediction</h2>
-                <div className='method-selection'>
-                    <h3>Choose Prediction Method You Would Like To Use</h3>
-                    <p className='subtitle'>Select a team and player to see predicted statistics based on player performance</p>
-                    <div className='method-options'>
-                        <button 
-                            onClick={() => handlePredictionMethodChange('random_forest')}
-                            className={`method-button method-rf ${predictionMethod === 'random_forest' ? 'method-button-active' : ''}`}
-                        > 
-                            Random Forest
-                        </button>
-                        <button s
-                            onClick={() => handlePredictionMethodChange('average')}
-                            className={`method-button method-avg ${predictionMethod === 'average' ? 'method-button-active' : ''}`}
-                        >
-                            Weighted Average
-                        </button>
-                        <button 
-                            onClick={() => handlePredictionMethodChange('both')}
-                            className={`method-button method-both ${predictionMethod === 'both' ? 'method-button-active' : ''}`}
-                        >
-                            Compare Both
-                        </button>
-                    </div>
-                    <div className='method-description'>
-                        {PREDICTION_METHODS[predictionMethod].description}
-                    </div>
-                </div>                 
+                {methodSelector()}                 
                 
-                <h3>Select Team and Player</h3>
-                <div className='select-container'>
-                <select
-                    value={selectedTeam}
-                    onChange={handleTeamChange}
-                    className="select-box"
-                    disabled={loading}
-                >
-                    {Object.keys(NBA_TEAMS).map((team) => (
-                        <option key={team} value={team}>
-                            {team}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    value={selectedPlayer}
-                    onChange={handlePlayerChange}
-                    className="select-box"
-                    disabled={loading}
-                >
-                    <option value="">Select a player</option>
-                    {availablePlayers.map((player) => (
-                        <option key={player} value={player}>
-                            {player}
-                        </option>
-                    ))}
-                </select>
-                </div>
+                {playerSelector()}
 
                 {loading && <div className="loading">Loading predictions...</div>}
 
@@ -414,91 +393,11 @@ function App() {
                         />
                     </div>
                 )}
-
-                {/* Prediction Table */}
-                {prediction && rfAccuracyMetrics && (
-                    <div className="table-container">                        
-                        <h3>Prediction Results</h3>
-                        <div className="prediction-header">
-                            <h3>Result from Random Forest Prediction</h3>
-                            <p>Overall Accuracy: {rfAccuracyMetrics.overall}%</p> {/* Display overall accuracy */}
-                        </div>
-                        {prediction.map((row, index) => (
-                            <table className="prediction-table" key={index}>
-                                <thead>
-                                    <tr>
-                                        <th>Stat</th>
-                                        <th>Actual</th>
-                                        <th>Predicted</th>
-                                        <th>Accuracy (%)</th> {/* Add Accuracy column */}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>PTS</td>
-                                        <td>{row.PTS}</td>
-                                        <td>{row.Predicted_PTS}</td>
-                                        <td>{rfAccuracyMetrics.stats.PTS}%</td> {/* Display PTS accuracy */}
-                                    </tr>
-                                    <tr>
-                                        <td>AST</td>
-                                        <td>{row.AST}</td>
-                                        <td>{row.Predicted_AST}</td>
-                                        <td>{rfAccuracyMetrics.stats.AST}%</td> {/* Display AST accuracy */}
-                                    </tr>
-                                    <tr>
-                                        <td>TRB</td>
-                                        <td>{row.TRB}</td>
-                                        <td>{row.Predicted_TRB}</td>
-                                        <td>{rfAccuracyMetrics.stats.TRB}%</td> {/* Display TRB accuracy */}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        ))}
-                    </div>
-                )}
-
-                {/* Input Data Table */}
-                {inputData && avgAccuracyMetrics && (
-                    <div className="table-container">
-                        <div className="prediction-header">
-                            <h3>Result from Average Prediction</h3>
-                            <p>Overall Accuracy: {avgAccuracyMetrics.overall}%</p> {/* Display overall accuracy */}
-                        </div>
-                        {inputData.map((row, index) => (
-                            <table className="prediction-table" key={index}>
-                                <thead>
-                                    <tr>
-                                        <th>Stat</th>
-                                        <th>Actual</th>
-                                        <th>Predicted</th>
-                                        <th>Accuracy (%)</th> {/* Add Accuracy column */}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>PTS</td>
-                                        <td>{row.PTS}</td>
-                                        <td>{row.Predicted_PTS}</td>
-                                        <td>{avgAccuracyMetrics.stats.PTS}%</td> {/* Display PTS accuracy */}
-                                    </tr>
-                                    <tr>
-                                        <td>AST</td>
-                                        <td>{row.AST}</td>
-                                        <td>{row.Predicted_AST}</td>
-                                        <td>{avgAccuracyMetrics.stats.AST}%</td> {/* Display AST accuracy */}
-                                    </tr>
-                                    <tr>
-                                        <td>TRB</td>
-                                        <td>{row.TRB}</td>
-                                        <td>{row.Predicted_TRB}</td>
-                                        <td>{avgAccuracyMetrics.stats.TRB}%</td> {/* Display TRB accuracy */}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        ))}
-                    </div>
-                )}
+                
+                <h2>Prediction Results</h2>
+                {randomForestPrediction()}
+                {averagesPrediction()}
+                
                 <div className="gambling-disclaimer">
                 <div className="disclaimer-title">GAMBLING DISCLAIMER</div>
                 <p>
@@ -519,6 +418,77 @@ function App() {
                 </div>
         </div>
     )
+
+    function averagesPrediction() {
+        return renderPredictionTable("Result from Average Prediction", inputData, avgAccuracyMetrics);
+    }
+
+    function randomForestPrediction() {
+        return renderPredictionTable("Result from Random Forest Prediction", prediction, rfAccuracyMetrics);
+    }
+
+    function playerSelector() {
+        return <div className='player-selection'>
+            <h3>Select Team and Player</h3>
+                    <div className='select-container'>
+                    <select
+                        value={selectedTeam}
+                        onChange={handleTeamChange}
+                        className="select-box"
+                        disabled={loading}
+                    >
+                        {Object.keys(NBA_TEAMS).map((team) => (
+                            <option key={team} value={team}>
+                                {team}
+                            </option>
+                        ))}
+                    </select>
+                    <select
+                        value={selectedPlayer}
+                        onChange={handlePlayerChange}
+                        className="select-box"
+                        disabled={loading}
+                    >
+                        <option value="">Select a player</option>
+                        {availablePlayers.map((player) => (
+                            <option key={player} value={player}>
+                                {player}
+                            </option>
+                        ))}
+                    </select>
+                    </div>
+        </div>;
+    }
+
+    function methodSelector() {
+        return <div className='method-selection'>
+            <h3>Choose Prediction Method You Would Like To Use</h3>
+            <p className='subtitle'>Select a team and player to see predicted statistics based on player performance</p>
+            <div className='method-options'>
+                <button
+                    onClick={() => handlePredictionMethodChange('random_forest')}
+                    className={`method-button method-rf ${predictionMethod === 'random_forest' ? 'method-button-active' : ''}`}
+                >
+                    Random Forest
+                </button>
+                <button s
+                    onClick={() => handlePredictionMethodChange('average')}
+                    className={`method-button method-avg ${predictionMethod === 'average' ? 'method-button-active' : ''}`}
+                >
+                    Weighted Average
+                </button>
+                <button
+                    onClick={() => handlePredictionMethodChange('both')}
+                    className={`method-button method-both ${predictionMethod === 'both' ? 'method-button-active' : ''}`}
+                >
+                    Compare Both
+                </button>
+            </div>
+            <div className='method-description'>
+                {PREDICTION_METHODS[predictionMethod].description}
+            </div>
+        </div>;
+    }
 }
 
 export default App

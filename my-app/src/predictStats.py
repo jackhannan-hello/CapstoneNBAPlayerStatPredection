@@ -57,22 +57,6 @@ DISPLAY_NAMES = {
 }
 
 def get_player_average(player_key):
-    """recent_data = name + "P5G.csv"
-    rd = pd.read_csv(recent_data)
-    curr_team = rd.Team[4]
-    career_data = name + ".csv"
-    cd = pd.read_csv(career_data)
-    opp = pd.read_csv("sgaVMEM.csv")
-    recent_season = cd.loc[cd['Season'].isin(["2024-25"])]
-    team_data = cd.loc[cd['Team'].isin([curr_team])]
-    #team_data["PTS"].mean()  #[team_data['PTS'].mean(), team_data['AST'].mean(), team_data['TRB'].mean()]
-    #print(f"{cd[["PTS", "AST", "TRB"]].groupby("Team").mean(numeric_only=True)}")
-    #print(team_data[["PTS", "AST", "TRB"]])
-    season_avg = recent_season[["PTS", "AST", "TRB"]]
-    team_avg = team_data[["PTS", "AST", "TRB"]].mean()
-    recent_avg = rd[["PTS", "AST", "TRB"]].mean()
-    opponent_avg = opp[["PTS", "AST", "TRB"]].mean()
-    return team_avg, season_avg, recent_avg, opponent_avg"""
     # Get the player's file prefix
     player_prefix = PLAYER_MAPPING.get(player_key, player_key)
 
@@ -80,8 +64,10 @@ def get_player_average(player_key):
     
     # File paths
     base_dir = r"c:\Users\Jack Hannan\source\repos\CapstoneNBAPlayerStatPredection\my-app\src"
-    recent_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
-    career_data = os.path.join(base_dir, "playerStats", f"{player_prefix}.csv")
+    #recent_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
+    #career_data = os.path.join(base_dir, "playerStats", f"{player_prefix}.csv")
+    recent_data = os.path.join("playerStats", f"{player_prefix}FullStats.csv")
+    career_data = os.path.join("playerStats", f"{player_prefix}.csv")
 
     print(recent_data)
     print(career_data)
@@ -102,13 +88,6 @@ def get_player_average(player_key):
     # Get team and opponent data
     curr_team = td.Team.iloc[0] if 'Team' in td.columns else 'Unknown'
     oppent = td.Opponent.iloc[0] if 'Opponent' in td.columns else 'Unknown'
-    #oppent_data = os.path.join("playerStats", f"{player_prefix}VMEM.csv")
-    #op = pd.read_csv(oppent_data)
-    #oppent = op.Opponent.iloc[0] if 'Opponent' in op.columns else 'Unknown'
-    
-    # Load opponent data (using generic opponent data for now)
-    # In a full implementation, you'd have specific opponent data for each player
-    #opp_data = pd.DataFrame({'PTS': [25.0], 'AST': [6.0], 'TRB': [6.0]})
     opp_data = td[td['Opponent'] == oppent].iloc[:-1] if 'Opponent' in td.columns else td
     
     # Get recent season data
@@ -163,60 +142,6 @@ def optimize_weights_for_stat(team_val, season_val, recent_val, opponent_val, ac
     )
     
     return result.x
-"""optimal_weights = optimize_weights(team, season, recent, opponent, actual)
-    print(f"Optimized weights: [Team: {optimal_weights[0]:.3f}, Season: {optimal_weights[1]:.3f}, "
-          f"Recent: {optimal_weights[2]:.3f}, Opponent: {optimal_weights[3]:.3f}]")
-    #next_game_stats = calc_next_game(team, season, recent, opponent)
-    #print(f"team average: {team}")
-    #print(f"recent average: {recent}")
-
-    # Calculate prediction with optimized weights
-    optimized_prediction = calc_next_game(optimal_weights, team, season, recent, opponent)
-
-    # Calculate prediction with default equal weights
-    default_prediction = calc_next_game([0.25, 0.25, 0.25, 0.25], team, season, recent, opponent)"""
-def get_input():
-    #user_input = input("Enter Player Name: ")
-    #player = user_input.replace(" ", "")
-    #player = player.lower()
-    team, season, recent, opponent = get_player_average("sga") #come back to and change to variable
-    actual = pd.read_csv("sgaFullStats.csv").tail(1)[["PTS", "AST", "TRB"]].iloc[0]
-    #actual = actual.reset_index(drop=True)
-
-    optimized_prediction = {}
-    weights_by_stat = {}
-
-    for stat in ["PTS", "AST", "TRB"]:
-        # Get the specific stat values
-        team_val = team[stat]
-        season_val = season[stat].mean() if isinstance(season[stat], pd.Series) else season[stat]
-        recent_val = recent[stat]
-        opponent_val = opponent[stat]
-        actual_val = actual[stat]
-        
-        # Find optimal weights for this specific stat
-        opt_weights = optimize_weights_for_stat(
-            team_val, season_val, recent_val, opponent_val, actual_val
-        )
-        weights_by_stat[stat] = opt_weights
-        
-        # Calculate prediction with optimized weights
-        optimized_prediction[stat] = calc_next_game_stat(
-            opt_weights, team_val, season_val, recent_val, opponent_val
-        )
-    
-    # Create DataFrame for displaying in frontend
-    result_df = pd.DataFrame({
-        'PTS': [actual['PTS']],
-        'AST': [actual['AST']],
-        'TRB': [actual['TRB']],
-        'Predicted_PTS': [optimized_prediction['PTS']],
-        'Predicted_AST': [optimized_prediction['AST']],
-        'Predicted_TRB': [optimized_prediction['TRB']]
-    })
-    
-    print(result_df)
-    return result_df
 
 def calculate_accuracy_metrics(actual, predicted):
     """Calculate accuracy metrics for predictions"""
@@ -255,19 +180,12 @@ def get_player_prediction(player_key):
         # Get player averages
         team, season, recent, opponent = get_player_average(player_key)
         
-        # For this implementation, we'll use the recent average as the "actual" value
-        # In a real implementation, you'd use actual game data
-        """actual = pd.Series({
-            'PTS': recent['PTS'] * 1.05,  # Just adding 5% for demonstration
-            'AST': recent['AST'] * 0.95,  # Just reducing 5% for demonstration
-            'TRB': recent['TRB'] * 1.02   # Just adding 2% for demonstration
-        })"""
         player_prefix = PLAYER_MAPPING.get(player_key, player_key)
         base_dir = r"c:\Users\Jack Hannan\source\repos\CapstoneNBAPlayerStatPredection\my-app\src"
-        actual_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
+        #actual_data = os.path.join(base_dir, "playerStats", f"{player_prefix}FullStats.csv")
+        actual_data = os.path.join("playerStats", f"{player_prefix}FullStats.csv")
                              
         if not os.path.exists(actual_data):
-            #raise FileNotFoundError(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found")
             actual_data = os.path.join("playerStats", "sgaFullStats.csv")
             print(f"Stats files for {DISPLAY_NAMES.get(player_key, player_key)} not found, using default stats hello")
 
